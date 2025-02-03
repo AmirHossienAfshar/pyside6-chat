@@ -11,9 +11,101 @@ ApplicationWindow {
 
     Pyside_Bridge_class {
         id: bridge
-        // pyside_chat_data
-        // pyside_chat_data2
+        // pyside_chat_data        
     }
+
+    ColumnLayout {
+        anchors.fill: parent
+
+        RowLayout {
+            Layout.preferredWidth: parent.width
+            Layout.preferredHeight: parent.height * 0.9
+            spacing: 2
+
+            GroupBox {
+                title: "Chatroom"
+                Layout.fillHeight: true
+                Layout.preferredWidth: parent.width
+                ListView {
+                    id: chatListView
+                    anchors.fill: parent
+                    model: bridge.pyside_chat_list
+
+                    delegate: Column {
+                        property bool isMine: modelData.startsWith("mine: ")
+
+                        anchors.right: isMine ? chatListView.contentItem.right : undefined
+                        anchors.left: !isMine ? chatListView.contentItem.left : undefined
+                        spacing: 6
+
+                        Row {
+                            id: messageRow
+                            spacing: 6
+                            anchors.right: isMine ? parent.right : undefined
+                            anchors.left: !isMine ? parent.left : undefined
+
+                            Rectangle {
+                                width: Math.min(messageText.implicitWidth + 24, chatListView.width - 40)
+                                height: messageText.implicitHeight + 24
+                                radius: 15
+                                color: isMine ? "lightgrey" : "steelblue"
+
+                                Label {
+                                    id: messageText
+                                    text: modelData.substring(modelData.indexOf(": ") + 2)
+                                    color: isMine ? "black" : "white"
+                                    anchors.fill: parent
+                                    anchors.margins: 12
+                                    wrapMode: Label.Wrap
+                                }
+                            }
+                        }
+
+                        Label {
+                            id: timestampText
+                            text: "" // You can populate this with dynamic timestamps if needed
+                            color: "lightgrey"
+                            anchors.right: isMine ? parent.right : undefined
+                            anchors.left: !isMine ? parent.left : undefined
+                            font.pixelSize: 10
+                        }
+                    }
+                }
+            }
+        }
+        RowLayout {
+            Layout.preferredWidth: parent.width
+            Layout.preferredHeight: parent.height * 0.1
+            TextArea {
+                id: messageField
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                placeholderText: qsTr("Compose message")
+
+                wrapMode: TextArea.Wrap
+            }
+
+            Button {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                id: sendButton
+                text: qsTr("Send")
+                enabled: messageField.length > 0
+                onClicked: {
+                    // pyside_chatroom_class.append_message(messageField.text)
+                    messageField.text = ""
+                    // parseChatData()
+                    // if (parsedChatModel.count > 0) {
+                    //     console.log("sentBy =", parsedChatModel.get(parsedChatModel.count - 1).message)
+                    // }
+                    // chatListView.model = parsedChatModel     
+                    console.log(bridge.pyside_chat_data)
+                }
+            }
+        }
+    }
+}
+
 
     // Rectangle {
     //     anchors.fill: parent
@@ -45,42 +137,48 @@ ApplicationWindow {
     //         }
     //     }
     // }
+                // ListView {
+                //     id: chatListView
+                //     anchors.fill: parent
+                //     model: bridge.pyside_chat_data
+                //     // model: ["hello", "how u doin", "im fine~!"]
 
-    ListView {
-        id: chatListView
-        anchors.fill: parent
-        // model: bridge.pyside_chat_data  // Updated model
-        model: ["hi", "how you doin", "hellll"]
+                //     delegate: Column {
+                //         // Use index % 2 to determine alignment
+                //         anchors.right: index % 2 === 0 ? chatListView.contentItem.right : undefined
+                //         anchors.left: index % 2 !== 0 ? chatListView.contentItem.left : undefined
+                //         spacing: 6
 
-        delegate: Column {
-            spacing: 6
+                //         Row {
+                //             id: messageRow
+                //             spacing: 6
+                //             anchors.right: index % 2 === 0 ? parent.right : undefined
+                //             anchors.left: index % 2 !== 0 ? parent.left : undefined
 
-            Row {
-                id: messageRow
-                spacing: 6
-                anchors.right: model.sender === "mymsg" ? parent.right : undefined
-                anchors.left: model.sender === "othermsg" ? parent.left : undefined
+                //             Rectangle {
+                //                 width: Math.min(messageText.implicitWidth + 24, chatListView.width - 40)
+                //                 height: messageText.implicitHeight + 24
+                //                 radius: 15
+                //                 color: index % 2 === 0 ? "lightgrey" : "steelblue"
 
-                Rectangle {
-                    width: Math.min(messageText.implicitWidth + 24, chatListView.width - 40)
-                    height: messageText.implicitHeight + 24
-                    radius: 15
-                    color: model.sender === "mymsg" ? "lightgrey" : "steelblue"
+                //                 Label {
+                //                     id: messageText
+                //                     text: modelData
+                //                     color: index % 2 === 0 ? "black" : "white"
+                //                     anchors.fill: parent
+                //                     anchors.margins: 12
+                //                     wrapMode: Label.Wrap
+                //                 }
+                //             }
+                //         }
 
-                    Label {
-                        id: messageText
-                        text: model.message
-                        color: model.sender === "mymsg" ? "black" : "white"
-                        anchors.fill: parent
-                        anchors.margins: 12
-                        wrapMode: Label.Wrap
-                    }
-                }
-            }
-        }
-    }
-
-}
-
-// well, lets say that I want that thing to be added to a model of a list view. how to do that?
-// that model, should be carefully check if the msg is like this:
+                //         Label {
+                //             id: timestampText
+                //             text: "" // You can populate this with dynamic timestamps if needed
+                //             color: "lightgrey"
+                //             anchors.right: index % 2 === 0 ? parent.right : undefined
+                //             anchors.left: index % 2 !== 0 ? parent.left : undefined
+                //             font.pixelSize: 10
+                //         }
+                //     }
+                // }
