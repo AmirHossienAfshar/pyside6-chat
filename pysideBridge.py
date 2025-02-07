@@ -51,22 +51,22 @@ class Bridge(QObject):
         # ]
         # self.set_msgList(test_dict)
         
-        test_dict = [
-            "THIS#time#09:18# Hey, how are you?",
-            "THAT#time#09:20# I'm good! How about you?",
-            "THIS#time#09:30# Doing great! Just finished a project.",
-            "THAT#time#09:37# Oh nice! What was it about?",
-            "THIS#time#09:42# It was a chatbot for customer service.",
-            "THIS#time#09:52# Two messages in a row",
-            "THAT#time#09:55# Sounds interesting! Was it difficult?",
-            "THIS#time#09:57# A bit, but I learned a lot.",
-            "THAT#time#10:06# That's awesome! What tech did you use?",
-            "THIS#time#10:09# Python and some QML for UI.",
-        ]
-        self.set_msgList(test_dict)
+        # test_dict = [
+        #     "THIS#time#09:18# Hey, how are you?",
+        #     "THAT#time#09:20# I'm good! How about you?",
+        #     "THIS#time#09:30# Doing great! Just finished a project.",
+        #     "THAT#time#09:37# Oh nice! What was it about?",
+        #     "THIS#time#09:42# It was a chatbot for customer service.",
+        #     "THIS#time#09:52# Two messages in a row",
+        #     "THAT#time#09:55# Sounds interesting! Was it difficult?",
+        #     "THIS#time#09:57# A bit, but I learned a lot.",
+        #     "THAT#time#10:06# That's awesome! What tech did you use?",
+        #     "THIS#time#10:09# Python and some QML for UI.",
+        # ]
+        # self.set_msgList(test_dict)
         
         
-        # this below code is oddly not working!!
+        # # this below code is oddly not working!!
         # start_time = datetime.strptime(f"{random.randint(8, 10)}:{random.randint(0, 59)}", "%H:%M")
 
         # test_messages = [
@@ -86,9 +86,9 @@ class Bridge(QObject):
         # current_time = start_time
 
         # for msg in test_messages:
-        #     timestamp = current_time.strftime('%H:%M')
+        #     timestamp = current_time.strftime("%H:%M")
         #     formatted_msg = msg.replace("time#", f"time#{timestamp}#")
-        #     test_dict.append(formatted_msg)
+        #     test_dict.append(str(formatted_msg))
         #     current_time += timedelta(minutes=random.randint(1, 10))
             
         # print(test_dict)

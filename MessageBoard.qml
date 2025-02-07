@@ -61,6 +61,8 @@ GroupBox {
     }
 }
 
+
+// old code that only indicates the message itself, rather than the timestamp and others.
 // import QtQuick 6.5
 // import QtQuick.Controls 6.5
 // import QtQuick.Layouts
