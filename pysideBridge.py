@@ -51,7 +51,3 @@ class Bridge(QObject):
             "other: Looking forward to it!"
         ]
         self.set_msgList(test_dict)
-
-        
-        
-    
