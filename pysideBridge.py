@@ -4,6 +4,8 @@ import random
 from datetime import datetime, timedelta
 
 class Bridge(QObject):
+    msgList_changed = Signal()
+    
     def __init__(self):
         super().__init__()
         self.msgList = []
@@ -11,13 +13,11 @@ class Bridge(QObject):
         t = threading.Thread(target=self.main_func)
         t.start()
         
-    msgList_changed = Signal()
-    
     def set_msgList(self, value):
         # print(f"[PYSIDE] the value to set is {value}")
         self.msgList = value
         # self.msgList.append(value)
-        self.msgList_changed.emit
+        self.msgList_changed.emit()
         
     def get_msgList(self):
         return self.msgList
@@ -29,7 +29,7 @@ class Bridge(QObject):
         current_min = now.minute
         msg = "THIS#time#" + str(current_hour) + ":" + str(current_min) + "# " + value 
         self.msgList.append(msg)
-        self.msgList_changed.emit
+        self.msgList_changed.emit()
         # print(self.msgList)
     
     pyside_chat_list = Property(list, get_msgList, set_msgList, notify=msgList_changed)

@@ -30,26 +30,28 @@ ApplicationWindow {
         }
 
         RowLayout {
-            Layout.preferredWidth: parent.width
+            Layout.preferredWidth: parent.width * 0.8
             Layout.preferredHeight: parent.height * 0.1
             TextArea {
                 id: messageField
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 placeholderText: qsTr("Compose message")
-
                 wrapMode: TextArea.Wrap
+                verticalAlignment: Text.AlignVCenter  // Center text vertically
+                horizontalAlignment: Text.AlignHCenter  // Center text horizontally
+                padding: 12  // Optional: Add some padding for better spacing
             }
 
             Button {
-                Layout.fillWidth: true
+                // Layout.fillWidth: true
+                Layout.preferredWidth: parent.width * 0.2
                 Layout.fillHeight: true
                 id: sendButton
                 text: qsTr("Send")
                 enabled: messageField.length > 0
                 onClicked: {
                     bridge.set_new_msg(messageField.text)
-                    messageBoard.model = bridge.pyside_chat_list
                     messageField.text = ""
                     // console.log(bridge.pyside_chat_list)
                 }
