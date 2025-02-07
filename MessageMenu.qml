@@ -12,8 +12,8 @@ Item {
 
     Pyside_Bridge_class {
         id: bridge
-        // pyside_chat_list
         // set_new_msg
+        // menu_edith_msg
         // menu_copy_msg
     }
 
@@ -47,6 +47,7 @@ Item {
                 text: qsTr("Edit")
                 onTriggered: {
                     console.log("Edit message: " + messageContent)
+                    bridge.menu_edith_msg(messageContent)
                 }
             }
             MenuItem {
@@ -54,6 +55,13 @@ Item {
                 onTriggered: {
                     console.log("Copy message: " + messageContent)
                     bridge.menu_copy_msg(messageContent)
+                }
+            }
+            MenuItem {
+                text: qsTr("Delete")
+                onTriggered: {
+                    console.log("Delete message: " + messageContent)
+                    bridge.menu_delete_msg(messageContent)
                 }
             }
         }

@@ -12,7 +12,6 @@ ApplicationWindow {
     Pyside_Bridge_class {
         id: bridge
         // pyside_chat_list
-        // set_new_msg
     }
 
     ColumnLayout {
@@ -53,7 +52,7 @@ ApplicationWindow {
                 onClicked: {
                     bridge.set_new_msg(messageField.text)
                     messageField.text = ""
-                    // console.log(bridge.pyside_chat_list)
+                    console.log(bridge.pyside_chat_list)
                 }
             }
         }

@@ -11,7 +11,7 @@ class Bridge(QObject):
         super().__init__()
         self.msgList = []
         
-        t = threading.Thread(target=self.main_func)
+        t = threading.Thread(target=self.main_func, daemon=True)
         t.start()
         
     def set_msgList(self, value):
@@ -19,6 +19,7 @@ class Bridge(QObject):
         self.msgList = value
         # self.msgList.append(value)
         self.msgList_changed.emit()
+        print("msgList_changed signal emitted")
         
     def get_msgList(self):
         return self.msgList
@@ -36,15 +37,21 @@ class Bridge(QObject):
     @Slot(str)
     def menu_copy_msg(self, value):
         pyperclip.copy(value)
-        print(f"[PYSIDE] msg cipied to clipboard! value is {value}")
+        # print(f"[PYSIDE] msg cipied to clipboard! value is {value}")
         
     @Slot(str)
     def menu_edith_msg(self, value):
-        pass
+        pass                
         
     @Slot(str)
     def menu_delete_msg(self, value):
-        pass
+        print(f"[PYSIDE] msg to delete is {value}")
+        for msg in self.msgList:
+            if msg.endswith(value):
+                self.msgList.remove(msg)
+                break
+        # print(self.msgList)
+        self.msgList_changed.emit()
     
     pyside_chat_list = Property(list, get_msgList, set_msgList, notify=msgList_changed)
     
