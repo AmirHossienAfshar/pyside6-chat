@@ -129,7 +129,8 @@ GroupBox {
                         }
                         MessageMenu {
                             is_Mine: isMine
-                            messageContent: messageContent
+                            // messageContent: messageContent
+                            messageContent: messageText.text
                         }
                     }
                 }

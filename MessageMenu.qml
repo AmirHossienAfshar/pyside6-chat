@@ -1,5 +1,6 @@
 import QtQuick 6.5
 import QtQuick.Controls 6.5
+import Pyside_Bridge 1.0
 
 Item {
     id: messageArea
@@ -7,6 +8,14 @@ Item {
     property string messageContent: ""
 
     anchors.fill: parent
+
+
+    Pyside_Bridge_class {
+        id: bridge
+        // pyside_chat_list
+        // set_new_msg
+        // menu_copy_msg
+    }
 
     MouseArea {
         id: mouseArea
@@ -44,6 +53,7 @@ Item {
                 text: qsTr("Copy")
                 onTriggered: {
                     console.log("Copy message: " + messageContent)
+                    bridge.menu_copy_msg(messageContent)
                 }
             }
         }
@@ -60,6 +70,7 @@ Item {
                 text: qsTr("Copy")
                 onTriggered: {
                     console.log("Copy message: " + messageContent)
+                    bridge.menu_copy_msg(messageContent)
                 }
             }
         }

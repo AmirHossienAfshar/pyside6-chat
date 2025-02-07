@@ -2,6 +2,7 @@ from PySide6.QtCore import QObject, Property, Signal, Slot
 import threading
 import random
 from datetime import datetime, timedelta
+import pyperclip
 
 class Bridge(QObject):
     msgList_changed = Signal()
@@ -31,6 +32,19 @@ class Bridge(QObject):
         self.msgList.append(msg)
         self.msgList_changed.emit()
         # print(self.msgList)
+        
+    @Slot(str)
+    def menu_copy_msg(self, value):
+        pyperclip.copy(value)
+        print(f"[PYSIDE] msg cipied to clipboard! value is {value}")
+        
+    @Slot(str)
+    def menu_edith_msg(self, value):
+        pass
+        
+    @Slot(str)
+    def menu_delete_msg(self, value):
+        pass
     
     pyside_chat_list = Property(list, get_msgList, set_msgList, notify=msgList_changed)
     
@@ -52,7 +66,6 @@ class Bridge(QObject):
         ]
         self.set_msgList(self.msgList)
         print("values are now setted")
-        
         
         # # this below code is oddly not working!!
         # start_time = datetime.strptime(f"{random.randint(8, 10)}:{random.randint(0, 59)}", "%H:%M")
