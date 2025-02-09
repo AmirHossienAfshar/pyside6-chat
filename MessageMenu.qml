@@ -6,6 +6,8 @@ Item {
     id: messageArea
     property bool is_Mine: false
     property string messageContent: ""
+    property int messageIndex: -1
+    property string messageTimeStamp: "00:00"
 
     anchors.fill: parent
 
@@ -16,7 +18,7 @@ Item {
         // menu_edith_msg
         // menu_copy_msg
     }
-    
+
     MouseArea {
         id: mouseArea
         anchors.fill: parent
@@ -47,6 +49,8 @@ Item {
                 onTriggered: {
                     console.log("Edit message: " + messageContent)
                     bridge.menu_edith_msg(messageContent)
+                    bridge.menu_edith_msg_index(messageIndex)
+                    bridge.menu_edith_msg_time(messageTimeStamp)
                 }
             }
             MenuItem {

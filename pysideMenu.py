@@ -17,6 +17,14 @@ class MessageMenu(QObject):
         self.bridge.set_is_edithing(True)
         self.bridge.set_edithing_text(value)
         
+    @Slot(int)
+    def menu_edith_msg_index(self, value):
+        self.bridge.edith_msg_index = value
+        
+    @Slot(str)
+    def menu_edith_msg_time(self, value):
+        self.bridge.edithing_msg_time = value
+        
     @Slot(str)
     def menu_delete_msg(self, value):
         print(f"[PYSIDE] msg to delete is {value}")

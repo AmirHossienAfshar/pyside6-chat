@@ -78,8 +78,9 @@ ApplicationWindow {
                 text: qsTr("edith")
                 enabled: messageField_edith.length > 0
                 onClicked: {
-                    bridge.pyside_is_edithing = false
-                    
+                    // bridge.pyside_is_edithing = false // not neccessary because the bridge will do it.
+                    bridge.edith_msg(messageField_edith.text)
+
                 }
             }
         }

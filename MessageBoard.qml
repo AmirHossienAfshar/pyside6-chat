@@ -56,6 +56,8 @@ GroupBox {
                             is_Mine: isMine
                             // messageContent: messageContent
                             messageContent: messageText.text
+                            messageIndex: index
+                            messageTimeStamp: timestamp
                         }
                     }
                 }

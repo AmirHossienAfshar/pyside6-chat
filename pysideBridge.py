@@ -25,8 +25,10 @@ class Bridge(QObject):
         super().__init__()
         self.msgList = []
         self._initialized = True
-        self.edith_option_text = "some random text///////////////////////"
+        self.edith_option_text = ""
         self.is_edithing = False
+        self.edith_msg_index = -1
+        self.edithing_msg_time = ""
         
         t = threading.Thread(target=self.main_func, daemon=True)
         t.start()
@@ -76,6 +78,15 @@ class Bridge(QObject):
         self.msgList.append(msg)
         self.msgList_changed.emit()
         # print(self.msgList)
+        
+    @Slot(str)
+    def edith_msg(self, value):
+        msg = "THIS#time#" + self.edithing_msg_time + "# " + value
+        self.msgList[self.edith_msg_index] = msg
+        self.msgList_changed.emit()
+        self.set_is_edithing(False)
+        self.edith_msg_index = -1
+        self.edithing_msg_time = ""
     
     def main_func(self):
         print("setting the values!")
