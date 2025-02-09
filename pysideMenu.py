@@ -6,15 +6,15 @@ from pysideBridge import Bridge
 class MessageMenu(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.bridge = Bridge.get_instance()  # Get the shared Bridge instance
+        self.bridge = Bridge.get_instance()
         
     @Slot(str)
     def menu_copy_msg(self, value):
         pyperclip.copy(value)
-        
+
     @Slot(str)
     def menu_edith_msg(self, value):
-        # self.bridge.edith_option_text = value
+        self.bridge.set_is_edithing(True)
         self.bridge.set_edithing_text(value)
         
     @Slot(str)

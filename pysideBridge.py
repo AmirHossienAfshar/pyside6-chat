@@ -26,6 +26,7 @@ class Bridge(QObject):
         self.msgList = []
         self._initialized = True
         self.edith_option_text = "some random text///////////////////////"
+        self.is_edithing = False
         
         t = threading.Thread(target=self.main_func, daemon=True)
         t.start()
@@ -43,16 +44,28 @@ class Bridge(QObject):
     pyside_chat_list = Property(list, get_msgList, set_msgList, notify=msgList_changed)
     
     def get_edithing_text(self):
-        print("getting the edithing text")
+        # print("getting the edithing text")
         return self.edith_option_text
     
     def set_edithing_text(self, value):
-        print("setting the edithing text")
+        # print("setting the edithing text")
         self.edith_option_text = value
         self.edithing_text_changed.emit()
         
     edithing_text_changed = Signal()
     pyside_edithing_text = Property(str, get_edithing_text, set_edithing_text, notify=edithing_text_changed)
+    
+    def get_is_edithing(self):
+        # print("getting the edithing text")
+        return self.is_edithing
+    
+    def set_is_edithing(self, value):
+        # print("setting the edithing text")
+        self.is_edithing = value
+        self.is_edithing_changed.emit()
+        
+    is_edithing_changed = Signal()
+    pyside_is_edithing = Property(bool, get_is_edithing, set_is_edithing, notify=is_edithing_changed)
 
     @Slot(str)
     def set_new_msg(self, value):
