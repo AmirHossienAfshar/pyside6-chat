@@ -6,30 +6,33 @@ Item {
     id: messageArea
     property bool is_Mine: false
     property string messageContent: ""
+    property int messageIndex: -1
+    property string messageTimeStamp: "00:00"
+    // property string isEdited_flag: "0" // this might not be nessessary to keep the current status: either edited from before, or not, that both are going to be 1 for that flag
 
     anchors.fill: parent
 
-
     Message_Menu_Class {
         id: bridge
-        // set_new_msg
         // menu_edith_msg
         // menu_copy_msg
+        // menu_edith_msg_index
+        // menu_edith_msg_time
     }
-    
+
     MouseArea {
         id: mouseArea
         anchors.fill: parent
         acceptedButtons: Qt.RightButton
-        onClicked: {
-            if (mouse.button === Qt.RightButton) {
+        onClicked: (event) => {  // Declare "event" explicitly
+            if (event.button === Qt.RightButton) {
                 if (is_Mine) {
-                    messageMenuMine.x = mouse.x
-                    messageMenuMine.y = mouse.y + 10
+                    messageMenuMine.x = event.x
+                    messageMenuMine.y = event.y + 10
                     messageMenuMine.open()
                 } else {
-                    messageMenuOther.x = mouse.x
-                    messageMenuOther.y = mouse.y + 10
+                    messageMenuOther.x = event.x
+                    messageMenuOther.y = event.y + 10
                     messageMenuOther.open()
                 }
             }
@@ -45,22 +48,26 @@ Item {
             MenuItem {
                 text: qsTr("Edit")
                 onTriggered: {
-                    console.log("Edit message: " + messageContent)
+                    // console.log("Edit message: " + messageContent)
                     bridge.menu_edith_msg(messageContent)
+                    bridge.menu_edith_msg_index(messageIndex)
+                    bridge.menu_edith_msg_time(messageTimeStamp)
+                    // bridge.menu_edith_msg_flag(isEdited_flag)
                 }
             }
             MenuItem {
                 text: qsTr("Copy")
                 onTriggered: {
-                    console.log("Copy message: " + messageContent)
+                    // console.log("Copy message: " + messageContent)
                     bridge.menu_copy_msg(messageContent)
                 }
             }
             MenuItem {
                 text: qsTr("Delete")
                 onTriggered: {
-                    console.log("Delete message: " + messageContent)
-                    bridge.menu_delete_msg(messageContent)
+                    // console.log("Delete message: " + messageContent)
+                    // bridge.menu_delete_msg(messageContent)
+                    bridge.menu_delete_msg(messageIndex)
                 }
             }
         }
