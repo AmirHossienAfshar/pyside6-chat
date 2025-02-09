@@ -19,7 +19,8 @@ class MessageMenu(QObject):
         
     @Slot(int)
     def menu_edith_msg_index(self, value):
-        self.bridge.edith_msg_index = value
+        # self.bridge.edith_msg_index = value
+        self.bridge.set_edithing_index(value)
         
     @Slot(str)
     def menu_edith_msg_time(self, value):
@@ -33,7 +34,6 @@ class MessageMenu(QObject):
                 self.bridge.msgList.remove(msg)
                 break
         self.bridge.msgList_changed.emit()
-        
         
         
     # @Slot(str)

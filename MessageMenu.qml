@@ -23,15 +23,28 @@ Item {
         id: mouseArea
         anchors.fill: parent
         acceptedButtons: Qt.RightButton
-        onClicked: {
-            if (mouse.button === Qt.RightButton) {
+        // onClicked: {
+        //     if (mouse.button === Qt.RightButton) {
+        //         if (is_Mine) {
+        //             messageMenuMine.x = mouse.x
+        //             messageMenuMine.y = mouse.y + 10
+        //             messageMenuMine.open()
+        //         } else {
+        //             messageMenuOther.x = mouse.x
+        //             messageMenuOther.y = mouse.y + 10
+        //             messageMenuOther.open()
+        //         }
+        //     }
+        // }
+        onClicked: (event) => {  // Declare "event" explicitly
+            if (event.button === Qt.RightButton) {
                 if (is_Mine) {
-                    messageMenuMine.x = mouse.x
-                    messageMenuMine.y = mouse.y + 10
+                    messageMenuMine.x = event.x
+                    messageMenuMine.y = event.y + 10
                     messageMenuMine.open()
                 } else {
-                    messageMenuOther.x = mouse.x
-                    messageMenuOther.y = mouse.y + 10
+                    messageMenuOther.x = event.x
+                    messageMenuOther.y = event.y + 10
                     messageMenuOther.open()
                 }
             }

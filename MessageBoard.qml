@@ -7,7 +7,8 @@ GroupBox {
     Layout.fillHeight: true
     Layout.preferredWidth: parent.width
     property alias model: chatListView.model
-
+    property int hover_index_edith: -1
+    
     ScrollView {
         id: chatScrollView
         anchors.fill: parent
@@ -27,6 +28,7 @@ GroupBox {
                 property string messageContent: parts.length > 2 ? parts[3] : "Parsing Error"
 
                 property bool isMine: sender === "THIS"
+                property bool isEditing: hover_index_edith === index  // Check if this message should be highlighted
 
                 anchors.right: isMine ? chatListView.contentItem.right : undefined
                 anchors.left: !isMine ? chatListView.contentItem.left : undefined
@@ -42,7 +44,15 @@ GroupBox {
                         width: Math.min(messageText.implicitWidth + 24, chatListView.width - 40)
                         height: messageText.implicitHeight + 24
                         radius: 15
-                        color: isMine ? "lightgrey" : "steelblue"
+                        // color: isMine ? "lightgrey" : "steelblue"
+                        color: isEditing ? "yellow" : (isMine ? "lightgrey" : "steelblue")  // Highlight when editing
+                        border.color: isEditing ? "orange" : "transparent"
+                        border.width: isEditing ? 2 : 0
+                        Behavior on color {
+                            ColorAnimation {
+                                duration: 400
+                            }
+                        }
 
                         Label {
                             id: messageText
@@ -65,7 +75,7 @@ GroupBox {
                 Label {
                     id: timestampText
                     text: timestamp
-                    color: "lightgrey"
+                    color: "grey"
                     anchors.right: isMine ? parent.right : undefined
                     anchors.left: !isMine ? parent.left : undefined
                     font.pixelSize: 10

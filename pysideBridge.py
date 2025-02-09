@@ -68,6 +68,16 @@ class Bridge(QObject):
         
     is_edithing_changed = Signal()
     pyside_is_edithing = Property(bool, get_is_edithing, set_is_edithing, notify=is_edithing_changed)
+    
+    def get_edithing_index(self):
+        return self.edith_msg_index
+    
+    def set_edithing_index(self, value):
+        self.edith_msg_index = value
+        self.edithing_index_changed.emit()
+        
+    edithing_index_changed = Signal()
+    pyside_edithing_index = Property(int, get_edithing_index, set_edithing_index, notify=edithing_index_changed)
 
     @Slot(str)
     def set_new_msg(self, value):
@@ -85,7 +95,8 @@ class Bridge(QObject):
         self.msgList[self.edith_msg_index] = msg
         self.msgList_changed.emit()
         self.set_is_edithing(False)
-        self.edith_msg_index = -1
+        # self.edith_msg_index = -1
+        self.set_edithing_index(-1)
         self.edithing_msg_time = ""
     
     def main_func(self):

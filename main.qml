@@ -14,6 +14,7 @@ ApplicationWindow {
         // pyside_chat_list
         // pyside_edithing_text
         // pyside_is_edithing
+        // pyside_edithing_index
     }
 
     ColumnLayout {
@@ -26,6 +27,7 @@ ApplicationWindow {
             MessageBoard {
                 id: messageBoard
                 model: bridge.pyside_chat_list
+                hover_index_edith: bridge.pyside_edithing_index  // Pass the index from PySide
             }
         }
         RowLayout {
@@ -41,7 +43,7 @@ ApplicationWindow {
                 wrapMode: TextArea.Wrap
                 verticalAlignment: Text.AlignVCenter  // Center text vertically
                 horizontalAlignment: Text.AlignHCenter  // Center text horizontally
-                padding: 12  // Optional: Add some padding for better spacing
+                padding: 12
                 Keys.onPressed: (event) => {
                     if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                         if (event.modifiers & Qt.ShiftModifier) {
@@ -111,6 +113,7 @@ ApplicationWindow {
                 text: qsTr("cancel")
                 onClicked: {
                     bridge.pyside_is_edithing = false
+                    bridge.pyside_edithing_index = -1
                 }
             }
         }
