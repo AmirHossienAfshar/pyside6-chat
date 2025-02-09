@@ -25,11 +25,11 @@ GroupBox {
 
                 property string sender: parts.length > 0 ? parts[0] : "ERROR"
                 property string timestamp: parts.length > 1 ? parts[2] : "00:00"
-                property string editFlag: parts.length > 3 ? parts[3] : "0"  // New edit flag property
+                property string editFlag: parts.length > 3 ? parts[3] : "0"
                 property string messageContent: parts.length > 4 ? parts[4] : "Parsing Error"
 
                 property bool isMine: sender === "THIS"
-                property bool isEditing: hover_index_edith === index  // Check if this message should be highlighted
+                property bool isEditing: hover_index_edith === index
 
                 anchors.right: isMine ? chatListView.contentItem.right : undefined
                 anchors.left: !isMine ? chatListView.contentItem.left : undefined
@@ -46,7 +46,7 @@ GroupBox {
                         height: messageText.implicitHeight + 24
                         radius: 15
                         // color: isMine ? "lightgrey" : "steelblue"
-                        color: isEditing ? "yellow" : (isMine ? "lightgrey" : "steelblue")  // Highlight when editing
+                        color: isEditing ? "yellow" : (isMine ? "lightgrey" : "steelblue")
                         border.color: isEditing ? "orange" : "transparent"
                         border.width: isEditing ? 2 : 0
                         Behavior on color {
@@ -65,11 +65,9 @@ GroupBox {
                         }
                         MessageMenu {
                             is_Mine: isMine
-                            // messageContent: messageContent
                             messageContent: messageText.text
                             messageIndex: index
                             messageTimeStamp: timestamp
-                            // isEdited_flag: editFlag // this might not be neccecary to keep the current status: either edithed from befor, or not, that both are going to be 1 for that flagg
                         }
                     }
                 }

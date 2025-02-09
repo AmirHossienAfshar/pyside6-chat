@@ -27,7 +27,7 @@ ApplicationWindow {
             MessageBoard {
                 id: messageBoard
                 model: bridge.pyside_chat_list
-                hover_index_edith: bridge.pyside_edithing_index  // Pass the index from PySide
+                hover_index_edith: bridge.pyside_edithing_index
             }
         }
         RowLayout {
@@ -102,7 +102,6 @@ ApplicationWindow {
                 // enabled: messageField_edith.length > 0
                 enabled: messageField_edith.text.trim() !== bridge.pyside_edithing_text.trim() && messageField_edith.text.trim() !== ""
                 onClicked: {
-                    // bridge.pyside_is_edithing = false // not neccessary because the bridge will do it.
                     bridge.edith_msg(messageField_edith.text)
                 }
             }

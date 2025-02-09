@@ -8,8 +8,6 @@ Item {
     property string messageContent: ""
     property int messageIndex: -1
     property string messageTimeStamp: "00:00"
-    // property string isEdited_flag: "0" // this might not be nessessary to keep the current status: either edited from before, or not, that both are going to be 1 for that flag
-
     anchors.fill: parent
 
     Message_Menu_Class {
@@ -24,7 +22,7 @@ Item {
         id: mouseArea
         anchors.fill: parent
         acceptedButtons: Qt.RightButton
-        onClicked: (event) => {  // Declare "event" explicitly
+        onClicked: (event) => {  // Declared "event" explicitly
             if (event.button === Qt.RightButton) {
                 if (is_Mine) {
                     messageMenuMine.x = event.x
@@ -52,7 +50,6 @@ Item {
                     bridge.menu_edith_msg(messageContent)
                     bridge.menu_edith_msg_index(messageIndex)
                     bridge.menu_edith_msg_time(messageTimeStamp)
-                    // bridge.menu_edith_msg_flag(isEdited_flag)
                 }
             }
             MenuItem {
@@ -66,7 +63,6 @@ Item {
                 text: qsTr("Delete")
                 onTriggered: {
                     // console.log("Delete message: " + messageContent)
-                    // bridge.menu_delete_msg(messageContent)
                     bridge.menu_delete_msg(messageIndex)
                 }
             }
