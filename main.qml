@@ -12,6 +12,13 @@ ApplicationWindow {
     Pyside_Bridge_class {
         id: bridge
         // pyside_chat_list
+        // pyside_edithing_text
+    }
+
+    Text {
+        text: bridge.pyside_edithing_text
+        x: 100
+        y: 100
     }
 
     ColumnLayout {

@@ -1,8 +1,6 @@
 from PySide6.QtCore import QObject, Property, Signal, Slot
 import threading
-import random
-from datetime import datetime, timedelta
-import pyperclip
+from datetime import datetime
 
 class Bridge(QObject):
     msgList_changed = Signal()
@@ -27,6 +25,7 @@ class Bridge(QObject):
         super().__init__()
         self.msgList = []
         self._initialized = True
+        self.edith_option_text = "some random text///////////////////////"
         
         t = threading.Thread(target=self.main_func, daemon=True)
         t.start()
@@ -40,9 +39,21 @@ class Bridge(QObject):
         
     def get_msgList(self):
         return self.msgList
-    
+            
     pyside_chat_list = Property(list, get_msgList, set_msgList, notify=msgList_changed)
     
+    def get_edithing_text(self):
+        print("getting the edithing text")
+        return self.edith_option_text
+    
+    def set_edithing_text(self, value):
+        print("setting the edithing text")
+        self.edith_option_text = value
+        self.edithing_text_changed.emit()
+        
+    edithing_text_changed = Signal()
+    pyside_edithing_text = Property(str, get_edithing_text, set_edithing_text, notify=edithing_text_changed)
+
     @Slot(str)
     def set_new_msg(self, value):
         now = datetime.now()
@@ -52,25 +63,6 @@ class Bridge(QObject):
         self.msgList.append(msg)
         self.msgList_changed.emit()
         # print(self.msgList)
-        
-    # @Slot(str)
-    # def menu_copy_msg(self, value):
-    #     pyperclip.copy(value)
-    #     # print(f"[PYSIDE] msg cipied to clipboard! value is {value}")
-        
-    # @Slot(str)
-    # def menu_edith_msg(self, value):
-    #     pass                
-        
-    # @Slot(str)
-    # def menu_delete_msg(self, value):
-    #     print(f"[PYSIDE] msg to delete is {value}")
-    #     for msg in self.msgList:
-    #         if msg.endswith(value):
-    #             self.msgList.remove(msg)
-    #             break
-    #     # print(self.msgList)
-    #     self.msgList_changed.emit()
     
     def main_func(self):
         print("setting the values!")
