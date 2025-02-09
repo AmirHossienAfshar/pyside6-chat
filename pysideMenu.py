@@ -26,14 +26,14 @@ class MessageMenu(QObject):
     def menu_edith_msg_time(self, value):
         self.bridge.edithing_msg_time = value
         
-    @Slot(str)
+    @Slot(int)
     def menu_delete_msg(self, value):
-        print(f"[PYSIDE] msg to delete is {value}")
-        for msg in self.bridge.msgList:
-            if msg.endswith(value):
-                self.bridge.msgList.remove(msg)
-                break
-        self.bridge.msgList_changed.emit()
+        # print(f"[PYSIDE] msg to delete is {value}")
+        try:
+            del self.bridge.msgList[value]
+            self.bridge.msgList_changed.emit()
+        except IndexError:
+            print(f"[PYSIDE] Index {value} is out of range for msgList")
         
         
     # @Slot(str)

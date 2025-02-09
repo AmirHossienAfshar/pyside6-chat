@@ -77,7 +77,8 @@ Item {
                 text: qsTr("Delete")
                 onTriggered: {
                     // console.log("Delete message: " + messageContent)
-                    bridge.menu_delete_msg(messageContent)
+                    // bridge.menu_delete_msg(messageContent)
+                    bridge.menu_delete_msg(messageIndex)
                 }
             }
         }
