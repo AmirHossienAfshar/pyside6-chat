@@ -99,11 +99,11 @@ ApplicationWindow {
                 Layout.fillHeight: true
                 id: sendButton_edith
                 text: qsTr("edith")
-                enabled: messageField_edith.length > 0
+                // enabled: messageField_edith.length > 0
+                enabled: messageField_edith.text.trim() !== bridge.pyside_edithing_text.trim() && messageField_edith.text.trim() !== ""
                 onClicked: {
                     // bridge.pyside_is_edithing = false // not neccessary because the bridge will do it.
                     bridge.edith_msg(messageField_edith.text)
-
                 }
             }
             Button {

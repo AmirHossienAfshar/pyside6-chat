@@ -34,6 +34,10 @@ class MessageMenu(QObject):
             self.bridge.msgList_changed.emit()
         except IndexError:
             print(f"[PYSIDE] Index {value} is out of range for msgList")
+    
+    # @Slot(str) # this function is not neccessary
+    # def menu_edith_msg_flag(self, value):
+    #     self.bridge.is_current_msg_edith_flag = value
         
         
     # @Slot(str)

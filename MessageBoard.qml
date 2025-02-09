@@ -8,7 +8,7 @@ GroupBox {
     Layout.preferredWidth: parent.width
     property alias model: chatListView.model
     property int hover_index_edith: -1
-    
+
     ScrollView {
         id: chatScrollView
         anchors.fill: parent
@@ -25,7 +25,8 @@ GroupBox {
 
                 property string sender: parts.length > 0 ? parts[0] : "ERROR"
                 property string timestamp: parts.length > 1 ? parts[2] : "00:00"
-                property string messageContent: parts.length > 2 ? parts[3] : "Parsing Error"
+                property string editFlag: parts.length > 3 ? parts[3] : "0"  // New edit flag property
+                property string messageContent: parts.length > 4 ? parts[4] : "Parsing Error"
 
                 property bool isMine: sender === "THIS"
                 property bool isEditing: hover_index_edith === index  // Check if this message should be highlighted
@@ -68,13 +69,14 @@ GroupBox {
                             messageContent: messageText.text
                             messageIndex: index
                             messageTimeStamp: timestamp
+                            // isEdited_flag: editFlag // this might not be neccecary to keep the current status: either edithed from befor, or not, that both are going to be 1 for that flagg
                         }
                     }
                 }
 
                 Label {
                     id: timestampText
-                    text: timestamp
+                    text: timestamp + (editFlag === "1" ? " (edited)" : "")
                     color: "grey"
                     anchors.right: isMine ? parent.right : undefined
                     anchors.left: !isMine ? parent.left : undefined

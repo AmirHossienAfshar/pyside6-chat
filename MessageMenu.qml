@@ -8,6 +8,7 @@ Item {
     property string messageContent: ""
     property int messageIndex: -1
     property string messageTimeStamp: "00:00"
+    // property string isEdited_flag: "0" // this might not be nessessary to keep the current status: either edited from before, or not, that both are going to be 1 for that flag
 
     anchors.fill: parent
 
@@ -23,19 +24,6 @@ Item {
         id: mouseArea
         anchors.fill: parent
         acceptedButtons: Qt.RightButton
-        // onClicked: {
-        //     if (mouse.button === Qt.RightButton) {
-        //         if (is_Mine) {
-        //             messageMenuMine.x = mouse.x
-        //             messageMenuMine.y = mouse.y + 10
-        //             messageMenuMine.open()
-        //         } else {
-        //             messageMenuOther.x = mouse.x
-        //             messageMenuOther.y = mouse.y + 10
-        //             messageMenuOther.open()
-        //         }
-        //     }
-        // }
         onClicked: (event) => {  // Declare "event" explicitly
             if (event.button === Qt.RightButton) {
                 if (is_Mine) {
@@ -64,6 +52,7 @@ Item {
                     bridge.menu_edith_msg(messageContent)
                     bridge.menu_edith_msg_index(messageIndex)
                     bridge.menu_edith_msg_time(messageTimeStamp)
+                    // bridge.menu_edith_msg_flag(isEdited_flag)
                 }
             }
             MenuItem {
