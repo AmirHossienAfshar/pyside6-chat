@@ -11,12 +11,12 @@ Item {
 
     anchors.fill: parent
 
-
     Message_Menu_Class {
         id: bridge
-        // set_new_msg
         // menu_edith_msg
         // menu_copy_msg
+        // menu_edith_msg_index
+        // menu_edith_msg_time
     }
 
     MouseArea {
@@ -47,7 +47,7 @@ Item {
             MenuItem {
                 text: qsTr("Edit")
                 onTriggered: {
-                    console.log("Edit message: " + messageContent)
+                    // console.log("Edit message: " + messageContent)
                     bridge.menu_edith_msg(messageContent)
                     bridge.menu_edith_msg_index(messageIndex)
                     bridge.menu_edith_msg_time(messageTimeStamp)
@@ -56,14 +56,14 @@ Item {
             MenuItem {
                 text: qsTr("Copy")
                 onTriggered: {
-                    console.log("Copy message: " + messageContent)
+                    // console.log("Copy message: " + messageContent)
                     bridge.menu_copy_msg(messageContent)
                 }
             }
             MenuItem {
                 text: qsTr("Delete")
                 onTriggered: {
-                    console.log("Delete message: " + messageContent)
+                    // console.log("Delete message: " + messageContent)
                     bridge.menu_delete_msg(messageContent)
                 }
             }

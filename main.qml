@@ -29,6 +29,7 @@ ApplicationWindow {
             }
         }
         RowLayout {
+            // compose message row layout
             visible: !bridge.pyside_is_edithing
             Layout.preferredWidth: parent.width * 0.8
             Layout.preferredHeight: parent.height * 0.1
@@ -41,6 +42,16 @@ ApplicationWindow {
                 verticalAlignment: Text.AlignVCenter  // Center text vertically
                 horizontalAlignment: Text.AlignHCenter  // Center text horizontally
                 padding: 12  // Optional: Add some padding for better spacing
+                Keys.onPressed: (event) => {
+                    if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                        if (event.modifiers & Qt.ShiftModifier) {
+                            sendButton.click() // Shift + Enter → Send message
+                        } else {
+                            messageField.insert(messageField.cursorPosition, "\n") // Enter → New Line
+                        }
+                        event.accepted = true // Prevent default behavior
+                    }
+                }
             }
             Button {
                 // Layout.fillWidth: true
@@ -57,6 +68,7 @@ ApplicationWindow {
             }
         }
         RowLayout {
+            // edith message row layout
             visible: bridge.pyside_is_edithing
             Layout.preferredWidth: parent.width * 0.8
             Layout.preferredHeight: parent.height * 0.1
@@ -64,15 +76,24 @@ ApplicationWindow {
                 id: messageField_edith
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                // placeholderText: qsTr("edith message")
                 text: bridge.pyside_edithing_text
                 wrapMode: TextArea.Wrap
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 padding: 12
+                Keys.onPressed: (event) => {
+                    if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                        if (event.modifiers & Qt.ShiftModifier) {
+                            sendButton_edith.click() // Shift + Enter → edith message
+                        } else {
+                            messageField_edith.insert(messageField_edith.cursorPosition, "\n") // Enter → New Line
+                        }
+                        event.accepted = true // Prevent default behavior
+                    }
+                }
             }
             Button {
-                Layout.preferredWidth: parent.width * 0.2
+                Layout.preferredWidth: parent.width * 0.1
                 Layout.fillHeight: true
                 id: sendButton_edith
                 text: qsTr("edith")
@@ -81,6 +102,15 @@ ApplicationWindow {
                     // bridge.pyside_is_edithing = false // not neccessary because the bridge will do it.
                     bridge.edith_msg(messageField_edith.text)
 
+                }
+            }
+            Button {
+                Layout.preferredWidth: parent.width * 0.1
+                Layout.fillHeight: true
+                id: sendButton_edith_cancel
+                text: qsTr("cancel")
+                onClicked: {
+                    bridge.pyside_is_edithing = false
                 }
             }
         }
