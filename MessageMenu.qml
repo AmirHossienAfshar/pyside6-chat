@@ -1,6 +1,6 @@
 import QtQuick 6.5
 import QtQuick.Controls 6.5
-import Pyside_Bridge 1.0
+import Message_Menu 1.0
 
 Item {
     id: messageArea
@@ -10,13 +10,13 @@ Item {
     anchors.fill: parent
 
 
-    Pyside_Bridge_class {
+    Message_Menu_Class {
         id: bridge
         // set_new_msg
         // menu_edith_msg
         // menu_copy_msg
     }
-
+    
     MouseArea {
         id: mouseArea
         anchors.fill: parent
@@ -34,7 +34,6 @@ Item {
                 }
             }
         }
-
         Menu {
             id: messageMenuMine
             MenuItem {
@@ -65,7 +64,6 @@ Item {
                 }
             }
         }
-
         Menu {
             id: messageMenuOther
             MenuItem {

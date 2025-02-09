@@ -7,9 +7,26 @@ import pyperclip
 class Bridge(QObject):
     msgList_changed = Signal()
     
+    _instance = None  # Singleton instance
+    
+    @classmethod
+    def get_instance(cls):
+        """Returns the singleton instance of Bridge."""
+        if cls._instance is None:
+            cls._instance = Bridge()
+        return cls._instance
+    
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+    
     def __init__(self):
+        if hasattr(self, "_initialized"):  # Prevent multiple initializations
+            return
         super().__init__()
         self.msgList = []
+        self._initialized = True
         
         t = threading.Thread(target=self.main_func, daemon=True)
         t.start()
@@ -24,6 +41,8 @@ class Bridge(QObject):
     def get_msgList(self):
         return self.msgList
     
+    pyside_chat_list = Property(list, get_msgList, set_msgList, notify=msgList_changed)
+    
     @Slot(str)
     def set_new_msg(self, value):
         now = datetime.now()
@@ -34,27 +53,24 @@ class Bridge(QObject):
         self.msgList_changed.emit()
         # print(self.msgList)
         
-    @Slot(str)
-    def menu_copy_msg(self, value):
-        pyperclip.copy(value)
-        # print(f"[PYSIDE] msg cipied to clipboard! value is {value}")
+    # @Slot(str)
+    # def menu_copy_msg(self, value):
+    #     pyperclip.copy(value)
+    #     # print(f"[PYSIDE] msg cipied to clipboard! value is {value}")
         
-    @Slot(str)
-    def menu_edith_msg(self, value):
-        pass                
+    # @Slot(str)
+    # def menu_edith_msg(self, value):
+    #     pass                
         
-    @Slot(str)
-    def menu_delete_msg(self, value):
-        print(f"[PYSIDE] msg to delete is {value}")
-        for msg in self.msgList:
-            if msg.endswith(value):
-                self.msgList.remove(msg)
-                break
-        # print(self.msgList)
-        self.msgList_changed.emit()
-    
-    pyside_chat_list = Property(list, get_msgList, set_msgList, notify=msgList_changed)
-    
+    # @Slot(str)
+    # def menu_delete_msg(self, value):
+    #     print(f"[PYSIDE] msg to delete is {value}")
+    #     for msg in self.msgList:
+    #         if msg.endswith(value):
+    #             self.msgList.remove(msg)
+    #             break
+    #     # print(self.msgList)
+    #     self.msgList_changed.emit()
     
     def main_func(self):
         print("setting the values!")
