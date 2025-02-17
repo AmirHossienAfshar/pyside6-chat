@@ -11,7 +11,8 @@ if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(script_dir)
 
-    qml_file = os.path.join(script_dir, "main.qml")  
+    # qml_file = os.path.join(script_dir, "main.qml")
+    qml_file = os.path.join(script_dir, "qml", "main.qml")  
     
     qmlRegisterType(Bridge, "Pyside_Bridge", 1, 0, "Pyside_Bridge_class")
     qmlRegisterType(MessageMenu, "Message_Menu", 1, 0, "Message_Menu_Class")
