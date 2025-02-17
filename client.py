@@ -39,7 +39,7 @@ class Client:
                 msg = self.client.recv(1024).decode(self.format)
                 if msg:
                     print(f"[SERVER] {msg}")
-                    self.message_queue.put(msg)  # Put the message in the queue
+                    self.message_queue.put(msg)
         except Exception as e:
             print(f"[ERROR] Receiving message: {e}")
 
@@ -51,7 +51,13 @@ if __name__ == "__main__":
     threading.Thread(target=client.receive_messages, daemon=True).start()
 
     # client.send_message("Hello World!")
+    count = 0
     while True: 
+        if count == 0:
+            msg = input("enter your name:")
+            client.send_message(msg)
+            count = 1
+            
         message2 = input("enter message:")
         if message2 == "DISCONNECT":
             break

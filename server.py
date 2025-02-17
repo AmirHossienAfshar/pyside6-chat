@@ -28,7 +28,7 @@ class Server:
             if username:
                 self.active_users[username] = conn
                 print(f"[NEW USER] {username} has joined")
-                conn.send("Welcome to the chat server!".encode(self.format))
+                conn.send(f"Welcome to the chat server {username}!".encode(self.format))
         except Exception as e:
             print(f"[ERROR] Could not retrieve username: {e}")
             conn.close()
@@ -62,16 +62,25 @@ class Server:
     def handle_message(self, sender, message):
         try:
             target, msg = message.split(":", 1)
+            
+            if target == sender:
+                self.active_users[sender].send("can't message urself!".encode(self.format))
+                return
+            
             if target in self.active_users:
                 target_conn = self.active_users[target]
                 target_conn.send(f"{sender}: {msg}".encode(self.format))
                 print(f"[MESSAGE] {sender} -> {target}: {msg}")
+                
             else:
                 self.active_users[sender].send("User not found.".encode(self.format))
         except ValueError:
             self.active_users[sender].send("Invalid message format. Use 'username:message'.".encode(self.format))
+            # important note: the username:message has the format of target:message! that usename is not the self.
+            # to do: handle not to-self message.
 
 
 if __name__ == "__main__":
     server = Server(host=socket.gethostbyname(socket.gethostname()), port=5050)
+    server = Server(host="127.0.0.1", port=5050)
     server.start()
