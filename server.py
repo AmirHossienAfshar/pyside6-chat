@@ -77,7 +77,6 @@ class Server:
         except ValueError:
             self.active_users[sender].send("Invalid message format. Use 'username:message'.".encode(self.format))
             # important note: the username:message has the format of target:message! that usename is not the self.
-            # to do: handle not to-self message.
 
 
 if __name__ == "__main__":

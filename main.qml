@@ -15,6 +15,7 @@ ApplicationWindow {
         // pyside_edithing_text
         // pyside_is_edithing
         // pyside_edithing_index
+        // pyside_chat_target
     }
 
     ColumnLayout {
@@ -28,6 +29,7 @@ ApplicationWindow {
                 id: messageBoard
                 model: bridge.pyside_chat_list
                 hover_index_edith: bridge.pyside_edithing_index
+                chat_target: bridge.pyside_chat_target
             }
         }
         RowLayout {

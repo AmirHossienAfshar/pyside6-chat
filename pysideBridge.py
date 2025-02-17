@@ -7,6 +7,7 @@ class Bridge(QObject):
     edithing_text_changed = Signal()
     is_edithing_changed = Signal()
     edithing_index_changed = Signal()
+    chat_target_changed = Signal()
     
     _instance = None  # Singleton instance
     
@@ -33,6 +34,7 @@ class Bridge(QObject):
         self.edith_msg_index = -1
         self.edithing_msg_time = ""
         self.is_current_msg_edith_flag = "0"
+        self.chat_target = "reza"
         
         t = threading.Thread(target=self.main_func, daemon=True)
         t.start()
@@ -67,7 +69,15 @@ class Bridge(QObject):
     def set_edithing_index(self, value):
         self.edith_msg_index = value
         self.edithing_index_changed.emit()
+            
+    def get_chat_target(self):
+        return self.chat_target
+    
+    def set_chat_target(self, value):
+        self.chat_target = value
+        self.chat_target_changed.emit()
         
+    pyside_chat_target = Property(str, get_chat_target, set_chat_target, notify=chat_target_changed)
     pyside_chat_list = Property(list, get_msgList, set_msgList, notify=msgList_changed)
     pyside_edithing_text = Property(str, get_edithing_text, set_edithing_text, notify=edithing_text_changed)
     pyside_is_edithing = Property(bool, get_is_edithing, set_is_edithing, notify=is_edithing_changed)
