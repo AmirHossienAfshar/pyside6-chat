@@ -44,23 +44,23 @@ class Client:
             print(f"[ERROR] Receiving message: {e}")
 
 
-if __name__ == "__main__":
-    client = Client(server_host="127.0.0.1", server_port=5050)
-    client.connect()
+# if __name__ == "__main__":
+#     client = Client(server_host="127.0.0.1", server_port=5050)
+#     client.connect()
     
-    threading.Thread(target=client.receive_messages, daemon=True).start()
+#     threading.Thread(target=client.receive_messages, daemon=True).start()
 
-    # client.send_message("Hello World!")
-    count = 0
-    while True: 
-        if count == 0:
-            msg = input("enter your name:")
-            client.send_message(msg)
-            count = 1
+#     # client.send_message("Hello World!")
+#     count = 0
+#     while True: 
+#         if count == 0:
+#             msg = input("enter your name:")
+#             client.send_message(msg)
+#             count = 1
             
-        message2 = input("enter message:")
-        if message2 == "DISCONNECT":
-            break
-        client.send_message(message2)
+#         message2 = input("enter message:")
+#         if message2 == "DISCONNECT":
+#             break
+#         client.send_message(message2)
         
-    client.disconnect()
+#     client.disconnect()

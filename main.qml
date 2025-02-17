@@ -4,8 +4,9 @@ import QtQuick.Layouts
 import Pyside_Bridge 1.0
 
 ApplicationWindow {
+    title: "chatroom"
     id: window
-    width: 450
+    width: 600
     height: 700
     visible: true
 
@@ -16,10 +17,25 @@ ApplicationWindow {
         // pyside_is_edithing
         // pyside_edithing_index
         // pyside_chat_target
+        // pyside_contact_list
+    }
+
+    Contacts {
+        id: contactSideBar
+        width: parent.width * 0.3
+        Layout.maximumWidth: 200
+        height: parent.height
+        anchors.left: parent.left
+        contactModel: bridge.pyside_contact_list
     }
 
     ColumnLayout {
-        anchors.fill: parent
+        id: mainChatSection
+        width: parent.width * 0.7
+        height: parent.height
+        anchors.left: contactSideBar.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
 
         RowLayout {
             Layout.preferredWidth: parent.width
@@ -120,6 +136,8 @@ ApplicationWindow {
         }
     }
 }
+
+
 
         // // this part is going to come in handy when the reply feature added.
         // RowLayout{

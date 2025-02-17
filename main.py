@@ -3,6 +3,7 @@ from PySide6.QtGui import QGuiApplication
 from PySide6.QtQml import QQmlApplicationEngine, qmlRegisterType
 from pysideBridge import Bridge
 from pysideMenu import MessageMenu
+from server import Server
 import os
 
 if __name__ == "__main__":

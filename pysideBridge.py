@@ -1,6 +1,7 @@
 from PySide6.QtCore import QObject, Property, Signal, Slot
 import threading
 from datetime import datetime
+from client import Client
 
 class Bridge(QObject):
     msgList_changed = Signal()
@@ -8,6 +9,7 @@ class Bridge(QObject):
     is_edithing_changed = Signal()
     edithing_index_changed = Signal()
     chat_target_changed = Signal()
+    contact_list_changed = Signal()
     
     _instance = None  # Singleton instance
     
@@ -35,6 +37,7 @@ class Bridge(QObject):
         self.edithing_msg_time = ""
         self.is_current_msg_edith_flag = "0"
         self.chat_target = "reza"
+        self.contact_list = ['amir', 'hasan', 'hossein']
         
         t = threading.Thread(target=self.main_func, daemon=True)
         t.start()
@@ -45,7 +48,6 @@ class Bridge(QObject):
         
     def get_msgList(self):
         return self.msgList
-            
     
     def get_edithing_text(self):
         return self.edith_option_text
@@ -54,14 +56,12 @@ class Bridge(QObject):
         self.edith_option_text = value
         self.edithing_text_changed.emit()
     
-    
     def get_is_edithing(self):
         return self.is_edithing
     
     def set_is_edithing(self, value):
         self.is_edithing = value
         self.is_edithing_changed.emit()
-        
     
     def get_edithing_index(self):
         return self.edith_msg_index
@@ -77,6 +77,14 @@ class Bridge(QObject):
         self.chat_target = value
         self.chat_target_changed.emit()
         
+    def get_contact_list(self):
+        return self.contact_list
+    
+    def set_contact_list(self, value):
+        self.contact_list = value
+        self.contact_list_changed.emit()
+        
+    pyside_contact_list = Property(list, get_contact_list, set_contact_list, notify=contact_list_changed)
     pyside_chat_target = Property(str, get_chat_target, set_chat_target, notify=chat_target_changed)
     pyside_chat_list = Property(list, get_msgList, set_msgList, notify=msgList_changed)
     pyside_edithing_text = Property(str, get_edithing_text, set_edithing_text, notify=edithing_text_changed)
@@ -116,3 +124,5 @@ class Bridge(QObject):
             "THIS#time#10:09#0# Python and some QML for UI.",
         ]
         self.set_msgList(self.msgList)
+        
+        self.set_contact_list(['amir', 'hasan', 'hossein', 'ali', 'reza'])

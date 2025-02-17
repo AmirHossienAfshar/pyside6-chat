@@ -5,7 +5,7 @@ import QtQuick.Layouts
 GroupBox {
     id: mainGroupBox
     title: "contacts"
-    property alias model: contactsListView.model
+    property alias contactModel: contactsListView.model
 
     ScrollView {
         id: chatScrollView
@@ -14,25 +14,22 @@ GroupBox {
 
         ListView {
             id: contactsListView
-            width: contactScrollView.width
+            // width: contactScrollView.width
+            width: chatScrollView.width
             height: chatScrollView.height
-            // model: []
-            model: ListModel {
-                ListElement { name: "Alice" }
-                ListElement { name: "Bob" }
-                ListElement { name: "Charlie" }
-            }
+            model: []
             delegate: Item {
                 width: contactsListView.width
                 height: 50  // Height for each contact button
                 Button {
                     id: contactButton
-                    text: model.name
+                    text: modelData
                     width: parent.width
                     height: parent.height
                     onClicked: {
-                        console.log("Clicked on:", model.name);
+                        console.log("Clicked on:", modelData);
                         // Call your function here when the button is clicked
+                        // console.log("model is:", model)
                     }
                 }
             }
