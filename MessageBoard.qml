@@ -3,11 +3,14 @@ import QtQuick.Controls 6.5
 import QtQuick.Layouts
 
 GroupBox {
+    id: mainGroupBox
     title: "Chatroom"
     Layout.fillHeight: true
     Layout.preferredWidth: parent.width
     property alias model: chatListView.model
+    property alias chat_target: mainGroupBox.title
     property int hover_index_edith: -1
+
 
     ScrollView {
         id: chatScrollView
